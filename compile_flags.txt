@@ -1,0 +1,8 @@
+-x
+c++
+-std=c++17
+-Wall
+-Wextra
+-Isrc
+-Wno-pragma-once-outside-header
+-Wno-pragma-system-header-outside-header
