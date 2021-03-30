@@ -1,10 +1,10 @@
 # Billiard makefile
 
-COMPILER = c++
+COMPILER = g++
 CCFLAGS = -c -g3
 
 all:	main.o CBilliard.o COpenGL.o COpenAL.o CVector.o CMatrix.o
-	${COMPILER} -o billiard.out main.o CBilliard.o COpenGL.o COpenAL.o CVector.o CMatrix.o -lGL -lglut -lopenal -lalut -lgmp -lm # -lcore++
+	${COMPILER} -o billiard.out main.o CBilliard.o COpenGL.o COpenAL.o CVector.o CMatrix.o -lGL -lGLU -lglut -lopenal -lalut -lgmp -lm # -lcore++
 
 main.o:		main.cpp 
 	${COMPILER} ${CCFLAGS} main.cpp

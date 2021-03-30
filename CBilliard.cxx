@@ -165,8 +165,8 @@ void CBilliard::init() {
   alGenBuffers(2, buffer); // Generate buffers, or else no sound will happen!
   alGenSources(2, source);
 
-  buffer[0] = alutCreateBufferFromFile((ALbyte *)"click.wav");
-  buffer[1] = alutCreateBufferFromFile((ALbyte *)"doink.wav");
+  buffer[0] = alutCreateBufferFromFile((const char *)"click.wav");
+  buffer[1] = alutCreateBufferFromFile((const char *)"doink.wav");
 
   alSourcef(source[0], AL_PITCH, 1.0f);
   alSourcef(source[0], AL_GAIN, 1.0f);
