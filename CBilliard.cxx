@@ -200,20 +200,20 @@ void CBilliard::setGlutFunctions(COpenGL *cogl) {
 
 CMatrix CBilliard::getX(double t, udtBall *b) {
   CMatrix temp = CMatrix(3, 1);
-  // 	cout << "getX(): t = " << t << endl;
+  // 	std::cout << "getX(): t = " << t << std::endl;
   temp.setEntry(0, 0,
                 b->v.getEntry(0, 0) / dPHYSICS_K * (1 - exp(-dPHYSICS_K * t)));
   temp.setEntry(1, 0,
                 b->v.getEntry(1, 0) / dPHYSICS_K * (1 - exp(-dPHYSICS_K * t)));
   temp.setEntry(2, 0,
                 b->v.getEntry(2, 0) / dPHYSICS_K * (1 - exp(-dPHYSICS_K * t)));
-  // 	cout << "Temp addition: " << endl; temp.print();
+  // 	std::cout << "Temp addition: " << std::endl; temp.print();
   return temp;
 }
 
 CMatrix CBilliard::getV(double t, udtBall *b) {
   CMatrix temp = CMatrix(3, 1);
-  // 	cout << "getV(): t = " << t << endl;
+  // 	std::cout << "getV(): t = " << t << std::endl;
   temp.setEntry(0, 0, b->v.getEntry(0, 0) * exp(-dPHYSICS_K * t));
   temp.setEntry(1, 0, b->v.getEntry(1, 0) * exp(-dPHYSICS_K * t));
   temp.setEntry(2, 0, b->v.getEntry(2, 0) * exp(-dPHYSICS_K * t));
@@ -262,7 +262,7 @@ double flog(double x) {
   return log(x);
   double ret = 0.0;
   double power = x - 1.0;
-  for (double i = 1.0; i < 200; i += 1.0) {
+  for (int i = 1; i < 200; i += 1) {
     power = -power * (x - 1.0);
     // 		ret += power / i;
   }
@@ -271,7 +271,7 @@ double flog(double x) {
 double flog(double x, double N) {
   double ret = 0.0;
   double power = x - 1.0;
-  for (double i = 1.0; i < N; i += 1.0) {
+  for (int i = 1; i < N; i += 1) {
     power = -power * (x - 1.0);
     ret += power / i;
   }
@@ -445,7 +445,7 @@ void CBilliard::getNextState() {
     if (cb[i]->bActive) {
       // Top wall
       double dWT0 = getWallTime(0, cb[i]);
-      // 		cout << "a "; cb[i]->coll.print();
+      // 		std::cout << "a "; cb[i]->coll.print();
       double margin = 0.0;
       if (dWT0 > margin && dWT0 != -1) {
         if (dWT0 < dLeastTime) {
@@ -617,9 +617,6 @@ void CBilliard::gotoNextState() {
 void CBilliard::displayFunction() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // vars
-  double dFullTime = -log((double)0.01) / dPHYSICS_K;
-
   glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
   glLoadIdentity();            // Reset The Projection Matrix
   gluPerspective(60.0f, (GLfloat)100 / (GLfloat)100, 0.1f, 250.0f);
@@ -654,7 +651,6 @@ void CBilliard::displayFunction() {
     if (drawState->uBalls[i]->bActive || false) {
       glPushMatrix();
       udtBall *b = drawState->uBalls[i];
-      udtBall *n = drawState->uBalls[i];
 
       CMatrix pos = b->x + getX(time - drawState->time, b);
 
@@ -687,6 +683,7 @@ void CBilliard::displayFunction() {
       glutSolidSphere(dBALL_SIZE, 20, 20);
 
       if (false) {
+        double dFullTime = -log((double)0.01) / dPHYSICS_K;
         CMatrix vel = getX(dFullTime, b) - getX(time - drawState->time, b);
         glColor3d(1.0, 0.0, 0.0);
         glLineWidth(2.0);
@@ -746,15 +743,12 @@ void CBilliard::displayFunction() {
   glutSwapBuffers();
 }
 
-void CBilliard::keyboardFunction(unsigned char key, int x, int y) {
+void CBilliard::keyboardFunction(unsigned char key, int, int) {
 
   double *dP = new double[9];
   CMatrix add;
   for (int i = 0; i < 9; i++)
     dP[i] = 0;
-  double rate = 0.1;
-
-  udtBall *b = current->uCueBall;
 
   switch (key) {
   case '1': // Default camera view
@@ -777,7 +771,7 @@ void CBilliard::keyboardFunction(unsigned char key, int x, int y) {
   case 'p': // Apply force 'up', or in +x direction, to cue ball
   case 'P':
     bPause = !bPause;
-    cout << endl << " - Pause: " << bPause << endl << endl;
+    std::cout << std::endl << " - Pause: " << bPause << std::endl << std::endl;
     break;
   case 'i': // Apply force 'up', or in +x direction, to cue ball
   case 'I':
@@ -809,37 +803,38 @@ void CBilliard::keyboardFunction(unsigned char key, int x, int y) {
   case 'g': // Goto next state
   case 'G':
     timeStep *= 1.1;
-    cout << "Timestep: " << timeStep << endl;
+    std::cout << "Timestep: " << timeStep << std::endl;
     break;
   case 'b': // Goto next state
   case 'B':
     timeStep /= 1.1;
-    cout << "Timestep: " << timeStep << endl;
+    std::cout << "Timestep: " << timeStep << std::endl;
     break;
   case 'f': // Reset
   case 'F':
     time += timeStep;
     if (time > current->time)
       time = current->time;
-    cout << "Time: " << time << " current time: " << current->time
-         << " energy: " << energy(time) << endl;
+    std::cout << "Time: " << time << " current time: " << current->time
+              << " energy: " << energy(time) << std::endl;
     break;
   case 'v': // Reset
   case 'V':
     time -= timeStep;
     if (time < 0)
       time = 0;
-    cout << "Time: " << time << " current time: " << current->time
-         << " energy: " << energy(time) << endl;
+    std::cout << "Time: " << time << " current time: " << current->time
+              << " energy: " << energy(time) << std::endl;
     break;
   case 't': // Reset
   case 'T':
-    cout << " states:\t " << states << "\t endtime:\t " << states->endtime
-         << endl;
-    cout << "current:\t " << current << "\t   time:\t " << current->time
-         << "\t endtime:\t " << current->endtime << endl;
-    cout << "   draw:\t " << drawState << "\t   time:\t " << drawState->time
-         << "\t endtime:\t " << drawState->endtime << endl;
+    std::cout << " states:\t " << states << "\t endtime:\t " << states->endtime
+              << std::endl;
+    std::cout << "current:\t " << current << "\t   time:\t " << current->time
+              << "\t endtime:\t " << current->endtime << std::endl;
+    std::cout << "   draw:\t " << drawState << "\t   time:\t "
+              << drawState->time << "\t endtime:\t " << drawState->endtime
+              << std::endl;
     break;
   case 'z':
   case 'Z':
@@ -880,8 +875,8 @@ void CBilliard::keyboardFunction(unsigned char key, int x, int y) {
     exit(0);
     break;
   default:
-    cout << "  Press r to reset" << endl;
-    cout << "  Press ESC to quit" << endl;
+    std::cout << "  Press r to reset" << std::endl;
+    std::cout << "  Press ESC to quit" << std::endl;
     break;
   }
 }
@@ -943,7 +938,8 @@ void CBilliard::reshapeFunction(int w, int h) {
 
 void CBilliard::idleFunction() {
   passiveMotionFunction((int)dMouseX, (int)dMouseY);
-  // 	cout << "fint: " << finaltime << "  ct: " << current->time << endl;
+  // 	std::cout << "fint: " << finaltime << "  ct: " << current->time <<
+  // std::endl;
 
   if (!bPause) {
     time += timeStep;

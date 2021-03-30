@@ -6,9 +6,6 @@
 #include <AL/al.h>
 #include <AL/alut.h>
 
-// Set Namespace
-using namespace std;
-
 class COpenAL {
 public:
   // Con- and destructors

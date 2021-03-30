@@ -1,5 +1,4 @@
 
-
 #ifndef CMATRIX_HXX
 #define CMATRIX_HXX
 
@@ -13,9 +12,6 @@
 #endif
 #include <CORE.h>
 #endif
-
-// Set Namespace
-using namespace std;
 
 class CMatrix {
 public:

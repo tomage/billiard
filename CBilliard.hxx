@@ -11,9 +11,6 @@
 #include <ctime>
 #include <iostream>
 
-// Set Namespace
-using namespace std;
-
 // Billiard user-defined-type
 struct udtBall {
 

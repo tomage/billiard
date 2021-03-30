@@ -6,9 +6,6 @@
 #include <GL/glut.h>
 #include <string>
 
-// Set Namespace
-using namespace std;
-
 class COpenGL {
 public:
   // Con- and destructors
@@ -50,7 +47,7 @@ private:
   //
 
   // Private variables
-  string sWindowTitle;
+  std::string sWindowTitle;
   int iGLwin;
 };
 

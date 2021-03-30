@@ -1,4 +1,4 @@
-
+#include <iostream>
 
 // Header
 #include "CMatrix.hxx"
@@ -56,9 +56,9 @@ bool CMatrix::setEntry(int i, int j, double d) {
 CMatrix CMatrix::operator*(CMatrix _CMatrix) {
   CMatrix temp = CMatrix(m, _CMatrix.n);
   if (n != _CMatrix.m) {
-    cout << "ERROR: Matrices not compatible! Product between " << m << "x" << n
-         << " matrix and " << _CMatrix.m << "x" << _CMatrix.n << " matrix."
-         << endl;
+    std::cout << "ERROR: Matrices not compatible! Product between " << m << "x"
+              << n << " matrix and " << _CMatrix.m << "x" << _CMatrix.n
+              << " matrix." << std::endl;
     return temp;
   }
 
@@ -98,13 +98,12 @@ CMatrix CMatrix::operator/(double d) {
 CMatrix CMatrix::operator+(CMatrix _CMatrix) {
   CMatrix temp = CMatrix(m, n);
   if (n != _CMatrix.n || m != _CMatrix.m) {
-    cout << "ERROR: Matrices not compatible! + operator"
-         << " n=" << n << " != _n=" << _CMatrix.n << " and m=" << m
-         << " != _m=" << _CMatrix.m << endl;
+    std::cout << "ERROR: Matrices not compatible! + operator"
+              << " n=" << n << " != _n=" << _CMatrix.n << " and m=" << m
+              << " != _m=" << _CMatrix.m << std::endl;
     return temp;
   }
 
-  double e;
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < _CMatrix.n; j++) {
       temp.setEntry(i, j, getEntry(i, j) + _CMatrix.getEntry(i, j));
@@ -116,13 +115,12 @@ CMatrix CMatrix::operator+(CMatrix _CMatrix) {
 CMatrix CMatrix::operator-(CMatrix _CMatrix) {
   CMatrix temp = CMatrix(m, n);
   if (n != _CMatrix.n || m != _CMatrix.m) {
-    cout << "ERROR: Matrices not compatible! - operator"
-         << " n=" << n << " != _n=" << _CMatrix.n << " and m=" << m
-         << " != _m=" << _CMatrix.m << endl;
+    std::cout << "ERROR: Matrices not compatible! - operator"
+              << " n=" << n << " != _n=" << _CMatrix.n << " and m=" << m
+              << " != _m=" << _CMatrix.m << std::endl;
     return temp;
   }
 
-  double e;
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < _CMatrix.n; j++) {
       temp.setEntry(i, j, getEntry(i, j) - _CMatrix.getEntry(i, j));
@@ -132,7 +130,7 @@ CMatrix CMatrix::operator-(CMatrix _CMatrix) {
 }
 
 double CMatrix::len() {
-  //	cout << "len:" << m << " " << n << endl;
+  //	std::cout << "len:" << m << " " << n << std::endl;
   double dRet = 0.0;
   if (n == 1) {
     for (int i = 0; i < m; i++) {
@@ -143,7 +141,7 @@ double CMatrix::len() {
       dRet += pow(a[0][i], (double)2.0);
     }
   } else {
-    cout << "ERROR: len() not used correctly" << endl;
+    std::cout << "ERROR: len() not used correctly" << std::endl;
     return 0;
   }
   return sqrt(dRet);
@@ -161,12 +159,12 @@ CMatrix CMatrix::transpose() {
 }
 
 void CMatrix::print() {
-  cout << "Matrix:" << endl;
+  std::cout << "Matrix:" << std::endl;
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
-      cout << a[i][j] << "  ";
+      std::cout << a[i][j] << "  ";
     }
-    cout << endl;
+    std::cout << std::endl;
   }
 }
 
@@ -187,7 +185,7 @@ double *CMatrix::inverse(double *d) {
     dT[8] = detA * (d[0] * d[4] - d[1] * d[3]);
     return dT;
   } else {
-    cerr << "Could not invert matrix:";
+    std::cerr << "Could not invert matrix:";
     // print3x3 (d);
     return d;
   }

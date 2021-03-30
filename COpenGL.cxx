@@ -16,7 +16,7 @@ COpenGL::~COpenGL() {
 
 // Public access modifiers ================================================= //
 
-void COpenGL::setVisible(bool b) {
+void COpenGL::setVisible(bool) {
   // Nothing...
 }
 

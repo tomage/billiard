@@ -13,7 +13,4 @@
 #include <iostream>
 #include <stdio.h>
 
-// Set the namespace
-using namespace std;
-
 #endif
