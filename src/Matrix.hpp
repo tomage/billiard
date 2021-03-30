@@ -1,6 +1,6 @@
 
-#ifndef CMATRIX_HPP
-#define CMATRIX_HPP
+#ifndef MATRIX_HPP
+#define MATRIX_HPP
 
 // Include
 #include <cmath>
@@ -13,27 +13,27 @@
 #include <CORE.h>
 #endif
 
-class CMatrix {
+class Matrix {
 public:
   // Con- and destructors
-  CMatrix();
-  CMatrix(int, int);
-  ~CMatrix();
+  Matrix();
+  Matrix(int, int);
+  ~Matrix();
 
   // Public access modifiers
   double getEntry(int, int);
   bool setEntry(int, int, double);
 
   // Public utility functions
-  CMatrix operator*(CMatrix);
-  CMatrix operator*(double);
-  CMatrix operator/(double);
-  CMatrix operator+(CMatrix);
-  CMatrix operator-(CMatrix);
-  // CMatrix operator = (CMatrix);
+  Matrix operator*(Matrix);
+  Matrix operator*(double);
+  Matrix operator/(double);
+  Matrix operator+(Matrix);
+  Matrix operator-(Matrix);
+  // Matrix operator = (Matrix);
 
   double len();
-  CMatrix transpose();
+  Matrix transpose();
   void print();
 
   double *inverse(double *);

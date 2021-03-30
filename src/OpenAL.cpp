@@ -1,14 +1,14 @@
 
 // Header
-#include "COpenAL.hpp"
+#include "OpenAL.hpp"
 
 // Con- and destructors ==================================================== //
 
-COpenAL::COpenAL() {
+OpenAL::OpenAL() {
   // Nothing...
 }
 
-COpenAL::~COpenAL() {
+OpenAL::~OpenAL() {
   // Nothing...
 }
 
@@ -18,9 +18,9 @@ COpenAL::~COpenAL() {
 
 // Public utility functions ================================================ //
 
-void COpenAL::doAlutInit(int *i, char **&c) { alutInit(i, c); }
+void OpenAL::doAlutInit(int *i, char **&c) { alutInit(i, c); }
 
-void COpenAL::doAlutExit() { alutExit(); }
+void OpenAL::doAlutExit() { alutExit(); }
 
 // Private access modifiers ================================================ //
 

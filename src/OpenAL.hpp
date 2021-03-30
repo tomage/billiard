@@ -1,16 +1,16 @@
 
-#ifndef COPENAL_HPP
-#define COPENAL_HPP
+#ifndef OPENAL_HPP
+#define OPENAL_HPP
 
 // Include
 #include <AL/al.h>
 #include <AL/alut.h>
 
-class COpenAL {
+class OpenAL {
 public:
   // Con- and destructors
-  COpenAL();
-  ~COpenAL();
+  OpenAL();
+  ~OpenAL();
 
   // Public access modifiers
   //

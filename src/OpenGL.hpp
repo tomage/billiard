@@ -1,16 +1,16 @@
 
-#ifndef COPENGL_HPP
-#define COPENGL_HPP
+#ifndef OPENGL_HPP
+#define OPENGL_HPP
 
 // Include
 #include <GL/glut.h>
 #include <string>
 
-class COpenGL {
+class OpenGL {
 public:
   // Con- and destructors
-  COpenGL(const char *);
-  ~COpenGL();
+  OpenGL(const char *);
+  ~OpenGL();
 
   // Public access modifiers
   void setVisible(bool);

@@ -1,11 +1,11 @@
 
-#ifndef CBilliard_HPP
-#define CBilliard_HPP
+#ifndef Billiard_HPP
+#define Billiard_HPP
 
 // Include
-#include "CMatrix.hpp"
-#include "COpenAL.hpp"
-#include "COpenGL.hpp"
+#include "Matrix.hpp"
+#include "OpenAL.hpp"
+#include "OpenGL.hpp"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
@@ -14,9 +14,9 @@
 // Billiard user-defined-type
 struct udtBall {
 
-  CMatrix x;
-  CMatrix v;
-  CMatrix coll;
+  Matrix x;
+  Matrix v;
+  Matrix coll;
 
   double red;
   double green;
@@ -28,9 +28,9 @@ struct udtBall {
   double dHoleTime, dCollisionTime, dWallTime;
 
   udtBall() {
-    x = CMatrix(3, 1);    // Location
-    v = CMatrix(3, 1);    // Velocity
-    coll = CMatrix(3, 1); // Collision vector
+    x = Matrix(3, 1);    // Location
+    v = Matrix(3, 1);    // Velocity
+    coll = Matrix(3, 1); // Collision vector
     red = 0.0;
     green = 0.0;
     blue = 0.0;
@@ -125,32 +125,32 @@ private:
   //
 };
 
-class CBilliard {
+class Billiard {
 public:
   // Con- and destructors
-  CBilliard();
-  ~CBilliard();
+  Billiard();
+  ~Billiard();
 
   // Public access modifiers
   //
 
   // Public utility functions
   void init();
-  void setGlutFunctions(COpenGL *cogl);
+  void setGlutFunctions(OpenGL *cogl);
 
   // Public variables
   //
 
-  static COpenGL *myOpenGL;
-  static COpenAL *myOpenAL;
+  static OpenGL *myOpenGL;
+  static OpenAL *myOpenAL;
 
 private:
   // Private access modifiers
   //
 
   // Private utility functions
-  static CMatrix getX(double, udtBall *);
-  static CMatrix getV(double, udtBall *);
+  static Matrix getX(double, udtBall *);
+  static Matrix getV(double, udtBall *);
   static double energy(double);
   static double energy(double, CState *);
 
@@ -175,7 +175,7 @@ private:
   static CState *drawState; // Draw state
   static double time;       // Currently selected time to display
   static double finaltime;
-  static CMatrix *holes;
+  static Matrix *holes;
 
   static double dTABLE_SIZEX;
   static double dTABLE_SIZEY;
@@ -193,7 +193,7 @@ private:
   static bool bLookAtCue;
   static bool bLookTop;
   static bool bLookCenter;
-  static CMatrix aim;
+  static Matrix aim;
 
   static ALuint buffer[2];
   static ALuint source[2];

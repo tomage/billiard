@@ -13,10 +13,10 @@ include_directories(
 add_executable(
     billiard
     ./src/main.cpp
-    ./src/CBilliard.cpp
-    ./src/CMatrix.cpp
-    ./src/COpenAL.cpp
-    ./src/COpenGL.cpp
+    ./src/Billiard.cpp
+    ./src/Matrix.cpp
+    ./src/OpenAL.cpp
+    ./src/OpenGL.cpp
 )
 
 CONFIGURE_FILE(data/doink.wav doink.wav COPYONLY)

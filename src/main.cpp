@@ -5,9 +5,9 @@
 int main(int argc, char **argv) {
 
   // Create instance of the main classes
-  COpenGL *myOpenGL = new COpenGL("Billiard");
-  COpenAL *myOpenAL = new COpenAL();
-  CBilliard *myBilliard = new CBilliard();
+  OpenGL *myOpenGL = new OpenGL("Billiard");
+  OpenAL *myOpenAL = new OpenAL();
+  Billiard *myBilliard = new Billiard();
 
   /* Set up OpenGL */
 

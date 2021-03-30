@@ -1,10 +1,10 @@
 
 // Header
-#include "CBilliard.hpp"
+#include "Billiard.hpp"
 
 // Con- and destructors ==================================================== //
 
-CBilliard::CBilliard() {
+Billiard::Billiard() {
 
   // Get seed
   srand(std::time(NULL));
@@ -18,25 +18,25 @@ CBilliard::CBilliard() {
   dENERGY_ZERO = 0.01;
 
   double dHoleVariance = 0.7;
-  holes = new CMatrix[6];
-  holes[0] = CMatrix(3, 1);
+  holes = new Matrix[6];
+  holes[0] = Matrix(3, 1);
   holes[0].setEntry(0, 0, dTABLE_SIZEX / 2 - dHOLE_SIZE * dHoleVariance);
   holes[0].setEntry(1, 0, dTABLE_SIZEY / 2 - dHOLE_SIZE * dHoleVariance);
-  holes[1] = CMatrix(3, 1);
+  holes[1] = Matrix(3, 1);
   holes[1].setEntry(0, 0, dTABLE_SIZEX / 2 - dHOLE_SIZE * dHoleVariance);
   holes[1].setEntry(1, 0, -dTABLE_SIZEY / 2 + dHOLE_SIZE * dHoleVariance);
-  holes[2] = CMatrix(3, 1);
+  holes[2] = Matrix(3, 1);
   holes[2].setEntry(0, 0, -dTABLE_SIZEX / 2 + dHOLE_SIZE * dHoleVariance);
   holes[2].setEntry(1, 0, dTABLE_SIZEY / 2 - dHOLE_SIZE * dHoleVariance);
-  holes[3] = CMatrix(3, 1);
+  holes[3] = Matrix(3, 1);
   holes[3].setEntry(0, 0, -dTABLE_SIZEX / 2 + dHOLE_SIZE * dHoleVariance);
   holes[3].setEntry(1, 0, -dTABLE_SIZEY / 2 + dHOLE_SIZE * dHoleVariance);
-  holes[4] = CMatrix(3, 1);
+  holes[4] = Matrix(3, 1);
   holes[4].setEntry(1, 0,
                     dTABLE_SIZEY / 2 - dHOLE_SIZE * dHoleVariance *
                                            dHoleVariance * dHoleVariance *
                                            dHoleVariance);
-  holes[5] = CMatrix(3, 1);
+  holes[5] = Matrix(3, 1);
   holes[5].setEntry(1, 0,
                     -dTABLE_SIZEY / 2 + dHOLE_SIZE * dHoleVariance *
                                             dHoleVariance * dHoleVariance *
@@ -49,7 +49,7 @@ CBilliard::CBilliard() {
   bPause = false;
   bLookAtCue = false;
 
-  aim = CMatrix(3, 0); // Set up aim along the x axis...
+  aim = Matrix(3, 0); // Set up aim along the x axis...
   aim.setEntry(0, 0, 1);
   aim.setEntry(1, 0, 0);
   aim.setEntry(2, 0, 0);
@@ -123,7 +123,7 @@ CBilliard::CBilliard() {
   }
 }
 
-CBilliard::~CBilliard() {
+Billiard::~Billiard() {
   // Nothing...
 }
 
@@ -133,7 +133,7 @@ CBilliard::~CBilliard() {
 
 // Public utility functions ================================================ //
 
-void CBilliard::init() {
+void Billiard::init() {
 
   // Initialize OpenGL stuff
   glShadeModel(GL_SMOOTH);
@@ -181,7 +181,7 @@ void CBilliard::init() {
   alSourcei(source[1], AL_BUFFER, buffer[1]);
 }
 
-void CBilliard::setGlutFunctions(COpenGL *cogl) {
+void Billiard::setGlutFunctions(OpenGL *cogl) {
   cogl->doGlutDisplayFunc(displayFunction);
   cogl->doGlutKeyboardFunc(keyboardFunction);
   cogl->doGlutSpecialFunc(specialFunction);
@@ -198,8 +198,8 @@ void CBilliard::setGlutFunctions(COpenGL *cogl) {
 
 // Private utility functions =============================================== //
 
-CMatrix CBilliard::getX(double t, udtBall *b) {
-  CMatrix temp = CMatrix(3, 1);
+Matrix Billiard::getX(double t, udtBall *b) {
+  Matrix temp = Matrix(3, 1);
   // 	std::cout << "getX(): t = " << t << std::endl;
   temp.setEntry(0, 0,
                 b->v.getEntry(0, 0) / dPHYSICS_K * (1 - exp(-dPHYSICS_K * t)));
@@ -211,8 +211,8 @@ CMatrix CBilliard::getX(double t, udtBall *b) {
   return temp;
 }
 
-CMatrix CBilliard::getV(double t, udtBall *b) {
-  CMatrix temp = CMatrix(3, 1);
+Matrix Billiard::getV(double t, udtBall *b) {
+  Matrix temp = Matrix(3, 1);
   // 	std::cout << "getV(): t = " << t << std::endl;
   temp.setEntry(0, 0, b->v.getEntry(0, 0) * exp(-dPHYSICS_K * t));
   temp.setEntry(1, 0, b->v.getEntry(1, 0) * exp(-dPHYSICS_K * t));
@@ -220,7 +220,7 @@ CMatrix CBilliard::getV(double t, udtBall *b) {
   return temp;
 }
 
-double CBilliard::energy(double t) {
+double Billiard::energy(double t) {
 
   double retX = 0.0;
   double retY = 0.0;
@@ -232,7 +232,7 @@ double CBilliard::energy(double t) {
   }
   return sqrt(retX * retX + retY * retY + retZ * retZ);
 }
-double CBilliard::energy(double t, CState *state) {
+double Billiard::energy(double t, CState *state) {
 
   double retX = 0.0;
   double retY = 0.0;
@@ -278,8 +278,8 @@ double flog(double x, double N) {
   return ret;
 }
 
-double CBilliard::getCollisionTime(udtBall *a, udtBall *b, double r1,
-                                   double r2) {
+double Billiard::getCollisionTime(udtBall *a, udtBall *b, double r1,
+                                  double r2) {
   // Returns time of collision
   // This is a pretty complex solution to detect collision with two balls when
   // either of them is stationary or moving. Need positions and velocity
@@ -347,9 +347,9 @@ double CBilliard::getCollisionTime(udtBall *a, udtBall *b, double r1,
   return -flog(root_) / k;
 }
 
-double CBilliard::getWallTime(int iWall, udtBall *b) {
+double Billiard::getWallTime(int iWall, udtBall *b) {
   // iWall can be: 0: left, 1: right, 2: top, 3: bottom
-  CMatrix temp = CMatrix(3, 1);
+  Matrix temp = Matrix(3, 1);
 
   double k = dPHYSICS_K;
   double r = dBALL_SIZE;
@@ -383,7 +383,7 @@ double CBilliard::getWallTime(int iWall, udtBall *b) {
   return ret;
 }
 
-void CBilliard::getNextState() {
+void Billiard::getNextState() {
 
   if (energy(current->time, current) < dENERGY_ZERO) {
     bPause = false;
@@ -451,7 +451,7 @@ void CBilliard::getNextState() {
         if (dWT0 < dLeastTime) {
           dLeastTime = dWT0;
           cb[i]->dWallTime = dWT0;
-          CMatrix m = getV(dWT0, cb[i]);
+          Matrix m = getV(dWT0, cb[i]);
           m.setEntry(1, 0, -m.getEntry(1, 0) * dLossFactor);
           cb[i]->coll = m;
         }
@@ -461,7 +461,7 @@ void CBilliard::getNextState() {
         if (dWT1 < dLeastTime) {
           dLeastTime = dWT1;
           cb[i]->dWallTime = dWT1;
-          CMatrix m = getV(dWT1, cb[i]);
+          Matrix m = getV(dWT1, cb[i]);
           m.setEntry(1, 0, -m.getEntry(1, 0) * dLossFactor);
           cb[i]->coll = m;
         }
@@ -471,7 +471,7 @@ void CBilliard::getNextState() {
         if (dWT2 < dLeastTime) {
           dLeastTime = dWT2;
           cb[i]->dWallTime = dWT2;
-          CMatrix m = getV(dWT2, cb[i]);
+          Matrix m = getV(dWT2, cb[i]);
           m.setEntry(0, 0, -m.getEntry(0, 0) * dLossFactor);
           cb[i]->coll = m;
         }
@@ -481,7 +481,7 @@ void CBilliard::getNextState() {
         if (dWT3 < dLeastTime) {
           dLeastTime = dWT3;
           cb[i]->dWallTime = dWT3;
-          CMatrix m = getV(dWT3, cb[i]);
+          Matrix m = getV(dWT3, cb[i]);
           m.setEntry(0, 0, -m.getEntry(0, 0) * dLossFactor);
           cb[i]->coll = m;
         }
@@ -534,11 +534,11 @@ void CBilliard::getNextState() {
               if (cb[j]->dCollisionTime == dLeastTime && i != j) {
 
                 // Get velocities of balls at collision
-                CMatrix v1 = getV(dLeastTime, cb[i]);
-                CMatrix v2 = getV(dLeastTime, cb[j]);
+                Matrix v1 = getV(dLeastTime, cb[i]);
+                Matrix v2 = getV(dLeastTime, cb[j]);
 
                 // Get vectors pointing from ball to ball
-                CMatrix vec1 = CMatrix(1, 3);
+                Matrix vec1 = Matrix(1, 3);
                 vec1.setEntry(
                     0, 0, nb[j]->x.getEntry(0, 0) - nb[i]->x.getEntry(0, 0));
                 vec1.setEntry(
@@ -547,7 +547,7 @@ void CBilliard::getNextState() {
                     0, 2, nb[j]->x.getEntry(2, 0) - nb[i]->x.getEntry(2, 0));
                 vec1 = vec1 / vec1.len(); // Normalize
 
-                CMatrix vec2 = CMatrix(1, 3);
+                Matrix vec2 = Matrix(1, 3);
                 vec2.setEntry(
                     0, 0, nb[i]->x.getEntry(0, 0) - nb[j]->x.getEntry(0, 0));
                 vec2.setEntry(
@@ -557,12 +557,12 @@ void CBilliard::getNextState() {
                 vec2 = vec2 / vec2.len(); // Normalize
 
                 // Calculate the parallel exchanging forces
-                CMatrix p1 = vec1.transpose() * (vec1 * v1).getEntry(0, 0);
-                CMatrix p2 = vec2.transpose() * (vec2 * v2).getEntry(0, 0);
+                Matrix p1 = vec1.transpose() * (vec1 * v1).getEntry(0, 0);
+                Matrix p2 = vec2.transpose() * (vec2 * v2).getEntry(0, 0);
 
                 // Calculate original normal forces
-                CMatrix n1 = v1 - p1;
-                CMatrix n2 = v2 - p2;
+                Matrix n1 = v1 - p1;
+                Matrix n2 = v2 - p2;
 
                 // Now add together the original normal force, and the exchange
                 // of the parallel forces
@@ -609,12 +609,12 @@ void CBilliard::getNextState() {
   gotoNextState();
 }
 
-void CBilliard::gotoNextState() {
+void Billiard::gotoNextState() {
   if (current->next != 0)
     current = current->next;
 }
 
-void CBilliard::displayFunction() {
+void Billiard::displayFunction() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
@@ -652,7 +652,7 @@ void CBilliard::displayFunction() {
       glPushMatrix();
       udtBall *b = drawState->uBalls[i];
 
-      CMatrix pos = b->x + getX(time - drawState->time, b);
+      Matrix pos = b->x + getX(time - drawState->time, b);
 
       glTranslated(pos.getEntry(0, 0), pos.getEntry(1, 0), 0);
 
@@ -684,7 +684,7 @@ void CBilliard::displayFunction() {
 
       if (false) {
         double dFullTime = -log((double)0.01) / dPHYSICS_K;
-        CMatrix vel = getX(dFullTime, b) - getX(time - drawState->time, b);
+        Matrix vel = getX(dFullTime, b) - getX(time - drawState->time, b);
         glColor3d(1.0, 0.0, 0.0);
         glLineWidth(2.0);
         glBegin(GL_LINE);
@@ -693,8 +693,8 @@ void CBilliard::displayFunction() {
                    vel.getEntry(2, 0) + dBALL_SIZE);
         glEnd();
 
-        CMatrix posnext = getX(drawState->endtime - drawState->time, b) -
-                          getX(time - drawState->time, b);
+        Matrix posnext = getX(drawState->endtime - drawState->time, b) -
+                         getX(time - drawState->time, b);
         glColor3d(0.0, 1.0, 0.0);
         glLineWidth(4.0);
         glBegin(GL_LINE);
@@ -719,7 +719,7 @@ void CBilliard::displayFunction() {
   glPopMatrix();
 
   udtBall *cb = drawState->uCueBall;
-  CMatrix cbpos = cb->x + getX(time - drawState->time, cb);
+  Matrix cbpos = cb->x + getX(time - drawState->time, cb);
 
   // Check if to look at cue ball
   if (bLookAtCue) {
@@ -743,10 +743,10 @@ void CBilliard::displayFunction() {
   glutSwapBuffers();
 }
 
-void CBilliard::keyboardFunction(unsigned char key, int, int) {
+void Billiard::keyboardFunction(unsigned char key, int, int) {
 
   double *dP = new double[9];
-  CMatrix add;
+  Matrix add;
   for (int i = 0; i < 9; i++)
     dP[i] = 0;
 
@@ -867,7 +867,7 @@ void CBilliard::keyboardFunction(unsigned char key, int, int) {
     break;
   case 'r': // Reset
   case 'R':
-    CBilliard();
+    Billiard();
     break;
   case 27: // Quit
     myOpenAL->doAlutExit();
@@ -881,7 +881,7 @@ void CBilliard::keyboardFunction(unsigned char key, int, int) {
   }
 }
 
-void CBilliard::specialFunction(int key, int x, int y) {
+void Billiard::specialFunction(int key, int x, int y) {
   switch (key) {
   case GLUT_KEY_RIGHT:
     keyboardFunction('w', x, y);
@@ -898,24 +898,24 @@ void CBilliard::specialFunction(int key, int x, int y) {
   }
 }
 
-void CBilliard::mouseFunction(int iButton, int iState, int x, int y) {
+void Billiard::mouseFunction(int iButton, int iState, int x, int y) {
   myOpenGL->iMouseButton = iButton;
   myOpenGL->iMouseState = iState;
   mouseMove(myOpenGL->iMouseButton, myOpenGL->iMouseState, x, y);
 }
 
-void CBilliard::motionFunction(int x, int y) {
+void Billiard::motionFunction(int x, int y) {
   mouseMove(myOpenGL->iMouseButton, myOpenGL->iMouseState, x, y);
 }
 
-void CBilliard::passiveMotionFunction(int x, int y) {
+void Billiard::passiveMotionFunction(int x, int y) {
   if (bAim)
     mouseMove(GLUT_RIGHT_BUTTON, GLUT_DOWN, x, y);
   else
     mouseMove(-1, -1, x, y);
 }
 
-void CBilliard::reshapeFunction(int w, int h) {
+void Billiard::reshapeFunction(int w, int h) {
   if (h > w) {
     myOpenGL->iScreenWidth = w;
     myOpenGL->iScreenHeight = w;
@@ -936,7 +936,7 @@ void CBilliard::reshapeFunction(int w, int h) {
   //  ;
 }
 
-void CBilliard::idleFunction() {
+void Billiard::idleFunction() {
   passiveMotionFunction((int)dMouseX, (int)dMouseY);
   // 	std::cout << "fint: " << finaltime << "  ct: " << current->time <<
   // std::endl;
@@ -978,7 +978,7 @@ void CBilliard::idleFunction() {
   glutPostRedisplay();
 }
 
-void CBilliard::mouseMove(int iButton, int iState, int x, int y) {
+void Billiard::mouseMove(int iButton, int iState, int x, int y) {
 
   dMouseX = x;
   dMouseY = y;
@@ -1018,32 +1018,32 @@ void CBilliard::mouseMove(int iButton, int iState, int x, int y) {
   }
 }
 
-COpenGL *CBilliard::myOpenGL;
-COpenAL *CBilliard::myOpenAL;
+OpenGL *Billiard::myOpenGL;
+OpenAL *Billiard::myOpenAL;
 
-CState *CBilliard::states;
-CState *CBilliard::current;
-CState *CBilliard::drawState;
-double CBilliard::time;
-double CBilliard::finaltime;
-CMatrix *CBilliard::holes;
+CState *Billiard::states;
+CState *Billiard::current;
+CState *Billiard::drawState;
+double Billiard::time;
+double Billiard::finaltime;
+Matrix *Billiard::holes;
 
-double CBilliard::dTABLE_SIZEX;
-double CBilliard::dTABLE_SIZEY;
-double CBilliard::dGAME_SPEED;
-double CBilliard::dBALL_SIZE;
-double CBilliard::dHOLE_SIZE;
-double CBilliard::dPHYSICS_K;
-double CBilliard::dENERGY_ZERO;
-double CBilliard::timeStep;
-double CBilliard::dMouseX;
-double CBilliard::dMouseY;
-bool CBilliard::bAim;
-bool CBilliard::bPause;
-bool CBilliard::bLookAtCue;
-bool CBilliard::bLookTop;
-bool CBilliard::bLookCenter;
-CMatrix CBilliard::aim;
+double Billiard::dTABLE_SIZEX;
+double Billiard::dTABLE_SIZEY;
+double Billiard::dGAME_SPEED;
+double Billiard::dBALL_SIZE;
+double Billiard::dHOLE_SIZE;
+double Billiard::dPHYSICS_K;
+double Billiard::dENERGY_ZERO;
+double Billiard::timeStep;
+double Billiard::dMouseX;
+double Billiard::dMouseY;
+bool Billiard::bAim;
+bool Billiard::bPause;
+bool Billiard::bLookAtCue;
+bool Billiard::bLookTop;
+bool Billiard::bLookCenter;
+Matrix Billiard::aim;
 
-ALuint CBilliard::buffer[2];
-ALuint CBilliard::source[2];
+ALuint Billiard::buffer[2];
+ALuint Billiard::source[2];

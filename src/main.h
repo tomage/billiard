@@ -7,9 +7,9 @@
 #include <config.h>
 #endif
 //#include <cstdlib>
-#include "CBilliard.hpp"
-#include "COpenAL.hpp"
-#include "COpenGL.hpp"
+#include "Billiard.hpp"
+#include "OpenAL.hpp"
+#include "OpenGL.hpp"
 #include <iostream>
 #include <stdio.h>
 
