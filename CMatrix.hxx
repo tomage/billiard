@@ -4,7 +4,6 @@
 #define CMATRIX_HXX
 
 // Include
-#include "CVector.hxx"
 #include <cmath>
 
 // #define USECORE

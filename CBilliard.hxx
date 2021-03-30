@@ -6,7 +6,6 @@
 #include "CMatrix.hxx"
 #include "COpenAL.hxx"
 #include "COpenGL.hxx"
-#include "CVector.hxx"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
