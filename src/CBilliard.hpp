@@ -1,11 +1,11 @@
 
-#ifndef CBilliard_HXX
-#define CBilliard_HXX
+#ifndef CBilliard_HPP
+#define CBilliard_HPP
 
 // Include
-#include "CMatrix.hxx"
-#include "COpenAL.hxx"
-#include "COpenGL.hxx"
+#include "CMatrix.hpp"
+#include "COpenAL.hpp"
+#include "COpenGL.hpp"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>

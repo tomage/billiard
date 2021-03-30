@@ -1,6 +1,6 @@
 
-#ifndef COPENAL_HXX
-#define COPENAL_HXX
+#ifndef COPENAL_HPP
+#define COPENAL_HPP
 
 // Include
 #include <AL/al.h>

@@ -1,6 +1,6 @@
 
 // Header
-#include "COpenGL.hxx"
+#include "COpenGL.hpp"
 
 // Con- and destructors ==================================================== //
 

@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.0 )
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CPP_STANDARD 17)
 
 project( billiard )
 
@@ -13,10 +13,10 @@ include_directories(
 add_executable(
     billiard
     ./src/main.cpp
-    ./src/CBilliard.cxx
-    ./src/CMatrix.cxx
-    ./src/COpenAL.cxx
-    ./src/COpenGL.cxx
+    ./src/CBilliard.cpp
+    ./src/CMatrix.cpp
+    ./src/COpenAL.cpp
+    ./src/COpenGL.cpp
 )
 
 CONFIGURE_FILE(data/doink.wav doink.wav COPYONLY)

@@ -1,6 +1,6 @@
 
-#ifndef CMATRIX_HXX
-#define CMATRIX_HXX
+#ifndef CMATRIX_HPP
+#define CMATRIX_HPP
 
 // Include
 #include <cmath>

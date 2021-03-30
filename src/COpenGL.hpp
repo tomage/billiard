@@ -1,6 +1,6 @@
 
-#ifndef COPENGL_HXX
-#define COPENGL_HXX
+#ifndef COPENGL_HPP
+#define COPENGL_HPP
 
 // Include
 #include <GL/glut.h>

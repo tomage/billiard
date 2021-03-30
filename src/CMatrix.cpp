@@ -1,7 +1,7 @@
 #include <iostream>
 
 // Header
-#include "CMatrix.hxx"
+#include "CMatrix.hpp"
 
 // CORE library fix
 #ifdef USECORE

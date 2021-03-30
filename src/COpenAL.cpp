@@ -1,6 +1,6 @@
 
 // Header
-#include "COpenAL.hxx"
+#include "COpenAL.hpp"
 
 // Con- and destructors ==================================================== //
 

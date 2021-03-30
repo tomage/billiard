@@ -1,6 +1,6 @@
 
 // Header
-#include "CBilliard.hxx"
+#include "CBilliard.hpp"
 
 // Con- and destructors ==================================================== //
 
