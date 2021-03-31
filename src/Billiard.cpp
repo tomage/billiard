@@ -1,7 +1,8 @@
 
 // Header
 #include "Billiard.hpp"
-#include <AL/alut.h>
+#include "OpenGL.hpp"
+#include "sound.hpp"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -11,10 +12,10 @@
 
 // Con- and destructors ==================================================== //
 
-Billiard::Billiard(OpenGL *myOpenGL, OpenAL *myOpenAL) {
+Billiard::Billiard(OpenGL *myOpenGL, Sound *sound) {
 
   this->myOpenGL = myOpenGL;
-  this->myOpenAL = myOpenAL;
+  this->sound = sound;
 
   // Get seed
   srand(std::time(NULL));
@@ -165,30 +166,8 @@ void Billiard::init() {
     glFogfv(GL_FOG_COLOR, fogColor);
   }
 
-  // Initialize OpenAL stuff
-  ALfloat alfVector[] = {0.0, 0.0, 0.0};
-  ALfloat listenerOri[] = {0.0, 0.0, 1.0, 0.0, 1.0, 0.0};
-  alListenerfv(AL_POSITION, alfVector);
-  alListenerfv(AL_VELOCITY, alfVector);
-  alListenerfv(AL_ORIENTATION, listenerOri);
-
-  alGenBuffers(2, buffer); // Generate buffers, or else no sound will happen!
-  alGenSources(2, source);
-
-  buffer[0] = alutCreateBufferFromFile((const char *)"click.wav");
-  buffer[1] = alutCreateBufferFromFile((const char *)"doink.wav");
-
-  alSourcef(source[0], AL_PITCH, 1.0f);
-  alSourcef(source[0], AL_GAIN, 1.0f);
-  alSourcefv(source[0], AL_POSITION, alfVector);
-  alSourcefv(source[0], AL_VELOCITY, alfVector);
-  alSourcei(source[0], AL_BUFFER, buffer[0]);
-
-  alSourcef(source[1], AL_PITCH, 1.0f);
-  alSourcef(source[1], AL_GAIN, 1.0f);
-  alSourcefv(source[1], AL_POSITION, alfVector);
-  alSourcefv(source[1], AL_VELOCITY, alfVector);
-  alSourcei(source[1], AL_BUFFER, buffer[1]);
+  sound->add("click", "click.wav");
+  sound->add("doink", "doink.wav");
 
   // Set GLUT functions
   myOpenGL->doGlutDisplayFunc(displayFunction);
@@ -878,10 +857,10 @@ void Billiard::keyboardFunction(unsigned char key, int, int) {
     break;
   case 'r': // Reset
   case 'R':
-    Billiard(myOpenGL, myOpenAL);
+    Billiard(myOpenGL, sound);
     break;
   case 27: // Quit
-    myOpenAL->doAlutExit();
+    delete sound;
     myOpenGL->doGlutDestroyWindow();
     exit(0);
     break;
@@ -973,9 +952,9 @@ void Billiard::idleFunction() {
       }
       //	alSourcef(source[0], AL_GAIN, drawState->uBalls[i]->v.len());
       if (bWall) {
-        alSourcePlay(source[1]);
+        sound->play("doink");
       } else {
-        alSourcePlay(source[0]);
+        sound->play("click");
       }
     }
   }
@@ -1030,7 +1009,7 @@ void Billiard::mouseMove(int iButton, int iState, int x, int y) {
 }
 
 OpenGL *Billiard::myOpenGL;
-OpenAL *Billiard::myOpenAL;
+Sound *Billiard::sound;
 
 CState *Billiard::states;
 CState *Billiard::current;
@@ -1055,6 +1034,3 @@ bool Billiard::bLookAtCue;
 bool Billiard::bLookTop;
 bool Billiard::bLookCenter;
 Matrix Billiard::aim;
-
-ALuint Billiard::buffer[2];
-ALuint Billiard::source[2];

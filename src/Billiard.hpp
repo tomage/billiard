@@ -3,9 +3,8 @@
 #define Billiard_HPP
 
 #include "Matrix.hpp"
-#include "OpenAL.hpp"
 #include "OpenGL.hpp"
-#include <AL/al.h>
+#include "sound.hpp"
 
 // Billiard user-defined-type
 struct udtBall {
@@ -124,7 +123,7 @@ private:
 class Billiard {
 public:
   // Con- and destructors
-  Billiard(OpenGL *myOpenGL, OpenAL *myOpenAL);
+  Billiard(OpenGL *myOpenGL, Sound *sound);
   ~Billiard();
 
   // Public access modifiers
@@ -138,7 +137,7 @@ public:
   //
 
   static OpenGL *myOpenGL;
-  static OpenAL *myOpenAL;
+  static Sound *sound;
 
 private:
   // Private access modifiers
@@ -190,9 +189,6 @@ private:
   static bool bLookTop;
   static bool bLookCenter;
   static Matrix aim;
-
-  static ALuint buffer[2];
-  static ALuint source[2];
 };
 
 #endif

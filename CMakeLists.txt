@@ -17,6 +17,7 @@ add_executable(
     ./src/Matrix.cpp
     ./src/OpenAL.cpp
     ./src/OpenGL.cpp
+    ./src/sound.cpp
 )
 
 CONFIGURE_FILE(data/doink.wav doink.wav COPYONLY)
