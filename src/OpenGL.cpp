@@ -1,13 +1,25 @@
 
 // Header
 #include "OpenGL.hpp"
+#include <GL/glut.h>
 
 // Con- and destructors ==================================================== //
 
-OpenGL::OpenGL(const char *c) {
-  sWindowTitle = c;
+OpenGL::OpenGL(const char *window_title, int *argc, char **&argv) {
+  sWindowTitle = window_title;
   iMouseButton = -1;
   iMouseState = -1;
+
+  // Initialize some glut stuff
+  doGlutInit(argc, argv);
+  doGlutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+  doGlutInitWindowSize(600, 600);
+  //
+  // Create the glut window
+  doGlutCreateWindow();
+
+  // And display the window
+  setVisible(true);
 }
 
 OpenGL::~OpenGL() {
@@ -65,11 +77,3 @@ void OpenGL::doGlutIdleFunc(void (&func)()) { glutIdleFunc(func); }
 void OpenGL::doGlutMainLoop() { glutMainLoop(); }
 
 void OpenGL::doGlutDestroyWindow() { glutDestroyWindow(iGLwin); }
-
-// Private access modifiers ================================================ //
-
-//
-
-// Private utility functions =============================================== //
-
-//

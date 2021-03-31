@@ -2,16 +2,7 @@
 
 // Header
 #include "Matrix.hpp"
-
-// CORE library fix
-#ifdef USECORE
-#define pow(x, y) pow((x).doubleValue(), (y).doubleValue())
-#define cos(x) cos((x).doubleValue())
-#define sin(x) sin((x).doubleValue())
-// #define rotateX(x, y, z, a) rotateX(x, y, z, a.doubleValue())
-// #define rotateY(x, y, z, a) rotateY(x, y, z, a.doubleValue())
-// #define rotateZ(x, y, z, a) rotateZ(x, y, z, a.doubleValue())
-#endif
+#include <cmath>
 
 // Con- and destructors ==================================================== //
 
@@ -190,11 +181,3 @@ double *Matrix::inverse(double *d) {
     return d;
   }
 }
-
-// Private access modifiers ================================================ //
-
-//
-
-// Private utility functions =============================================== //
-
-//

@@ -2,17 +2,6 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-// Include
-#include <cmath>
-
-// #define USECORE
-#ifdef USECORE
-#ifndef CORE_LEVEL
-#define CORE_LEVEL 3
-#endif
-#include <CORE.h>
-#endif
-
 class Matrix {
 public:
   // Con- and destructors
@@ -39,13 +28,6 @@ public:
   double *inverse(double *);
 
 private:
-  // Private access modifiers
-  //
-
-  // Private utility functions
-  //
-
-  // Private variables
   int m, n;
   double **a;
 };

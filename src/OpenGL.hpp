@@ -2,14 +2,12 @@
 #ifndef OPENGL_HPP
 #define OPENGL_HPP
 
-// Include
-#include <GL/glut.h>
 #include <string>
 
 class OpenGL {
 public:
   // Con- and destructors
-  OpenGL(const char *);
+  OpenGL(const char *window_title, int *argc, char **&argv);
   ~OpenGL();
 
   // Public access modifiers
@@ -40,13 +38,6 @@ public:
   int iMouseState;
 
 private:
-  // Private access modifiers
-  //
-
-  // Private utility functions
-  //
-
-  // Private variables
   std::string sWindowTitle;
   int iGLwin;
 };

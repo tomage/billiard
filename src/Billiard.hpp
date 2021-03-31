@@ -2,14 +2,10 @@
 #ifndef Billiard_HPP
 #define Billiard_HPP
 
-// Include
 #include "Matrix.hpp"
 #include "OpenAL.hpp"
 #include "OpenGL.hpp"
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
+#include <AL/al.h>
 
 // Billiard user-defined-type
 struct udtBall {
@@ -128,7 +124,7 @@ private:
 class Billiard {
 public:
   // Con- and destructors
-  Billiard();
+  Billiard(OpenGL *myOpenGL, OpenAL *myOpenAL);
   ~Billiard();
 
   // Public access modifiers
@@ -136,7 +132,7 @@ public:
 
   // Public utility functions
   void init();
-  void setGlutFunctions(OpenGL *cogl);
+  void run();
 
   // Public variables
   //

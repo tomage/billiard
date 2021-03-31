@@ -1,10 +1,20 @@
 
 // Header
 #include "Billiard.hpp"
+#include <AL/alut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <cmath>
+#include <ctime>
+#include <iostream>
 
 // Con- and destructors ==================================================== //
 
-Billiard::Billiard() {
+Billiard::Billiard(OpenGL *myOpenGL, OpenAL *myOpenAL) {
+
+  this->myOpenGL = myOpenGL;
+  this->myOpenAL = myOpenAL;
 
   // Get seed
   srand(std::time(NULL));
@@ -179,18 +189,19 @@ void Billiard::init() {
   alSourcefv(source[1], AL_POSITION, alfVector);
   alSourcefv(source[1], AL_VELOCITY, alfVector);
   alSourcei(source[1], AL_BUFFER, buffer[1]);
+
+  // Set GLUT functions
+  myOpenGL->doGlutDisplayFunc(displayFunction);
+  myOpenGL->doGlutKeyboardFunc(keyboardFunction);
+  myOpenGL->doGlutSpecialFunc(specialFunction);
+  myOpenGL->doGlutMouseFunc(mouseFunction);
+  myOpenGL->doGlutMotionFunc(motionFunction);
+  myOpenGL->doGlutPassiveMotionFunc(passiveMotionFunction);
+  myOpenGL->doGlutReshapeFunc(reshapeFunction);
+  myOpenGL->doGlutIdleFunc(idleFunction);
 }
 
-void Billiard::setGlutFunctions(OpenGL *cogl) {
-  cogl->doGlutDisplayFunc(displayFunction);
-  cogl->doGlutKeyboardFunc(keyboardFunction);
-  cogl->doGlutSpecialFunc(specialFunction);
-  cogl->doGlutMouseFunc(mouseFunction);
-  cogl->doGlutMotionFunc(motionFunction);
-  cogl->doGlutPassiveMotionFunc(passiveMotionFunction);
-  cogl->doGlutReshapeFunc(reshapeFunction);
-  cogl->doGlutIdleFunc(idleFunction);
-}
+void Billiard::run() { myOpenGL->doGlutMainLoop(); }
 
 // Private access modifiers ================================================ //
 
@@ -867,7 +878,7 @@ void Billiard::keyboardFunction(unsigned char key, int, int) {
     break;
   case 'r': // Reset
   case 'R':
-    Billiard();
+    Billiard(myOpenGL, myOpenAL);
     break;
   case 27: // Quit
     myOpenAL->doAlutExit();
