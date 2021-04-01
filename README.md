@@ -14,6 +14,19 @@ Instead of the traditional approach of moving each object along it's velocity ve
 This allows the user to pause the game, change the time-step/speed of the game, and even go backwards/forwards over those states.
 
 
+## How to play
+
+Rotate the camera by right-clicking anywhere on the window and holding the button down. The closer to the left/right edge, the faster the cue will move to that direction.
+
+To execute the shot, left-click anywhere on the screen. For a gentle shot, click high on the window, for a harder shot, click lower (right at bottom yields most poweful shot).
+
+If the white ball falls in a pocket, reset by hitting "z".
+
+To pause, press "p". To go backwards/forwards in time, press "v"/"f" respectively. To change the timestemp press "g" or "b" to increase or decrease the timestep respectively.
+
+... be prepared for the game to crash - _a lot_ :)
+
+
 ## Future of this repo
 
 I might do some more work on it in the future if I have time, but this is really just a toy project.
