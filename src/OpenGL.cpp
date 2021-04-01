@@ -13,7 +13,7 @@ OpenGL::OpenGL(const char *window_title, int *argc, char **&argv) {
   // Initialize some glut stuff
   doGlutInit(argc, argv);
   doGlutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-  doGlutInitWindowSize(600, 600);
+  doGlutInitWindowSize(1000, 1000);
   //
   // Create the glut window
   doGlutCreateWindow();
