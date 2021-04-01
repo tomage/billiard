@@ -25,4 +25,15 @@ I did take the original code (that I found on an old hard disk drive), and at le
 For kicks, I tried to keep those refactors in a very clean git-history, both as an exercise in doing neat/atomic refactors, but also just for fun.
 
 
+### Possible TO-DOs
+
+*   [ ] Replace custom `Matrix` with `std::vector` (not sure if matrices are needed)
+*   [ ] Try and make sound/graphics/input be plugin-based
+*   [ ] Try SDL as one plugin for sound/graphics/input
+*   [ ] Try plugging in a terminal/ncurses library for graphics
+*   [ ] Try plugging in a ray-tracing/marching library for graphics
+*   [ ] Add unit-tests! (try Catch2?)
+*   [ ] ...?
+
+
 Copyright (C) 2021  Tómas Árni Jónasson (see [license (GPLv3.0)](LICENSE.txt)
