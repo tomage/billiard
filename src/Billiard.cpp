@@ -58,7 +58,9 @@ Billiard::Billiard(OpenGL *myOpenGL, Sound *sound) {
   dMouseY = 0.0;
   bAim = false;
   bPause = false;
-  bLookAtCue = false;
+  bLookAtCue = true;
+  bLookTop = true;
+  bLookCenter = false;
 
   aim = Matrix(3, 0); // Set up aim along the x axis...
   aim.setEntry(0, 0, 1);
