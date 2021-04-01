@@ -36,4 +36,32 @@ For kicks, I tried to keep those refactors in a very clean git-history, both as 
 *   [ ] ...?
 
 
+## Building and running
+
+Dependencies (on most systems):
+
+*   C++ compiler (g++/gcc or similar)
+*   CMake
+*   OpenGL development libraries
+*   GLUT (OpenGL Utility Toolkit) development libraries
+*   OpenAL development libraries
+*   ALUT (OpenAL Utility Toolkit) development libraries
+
+I've included a Dockerfile that ought successfully build the game (run `./tools/build_docker.sh`), although of course you can't really play it through Docker. It's there more as a reference, and to make sure it builds on _some_ platform.
+
+If you have it set up properly, you can build it via:
+
+```sh
+$ ./tools/build.sh
+```
+
+and run via:
+```sh
+$ cd build/
+$ ./billiard
+```
+
+(Note: Sound will only play if the .wav files are in the same directory as you are when you run the binary)
+
+
 Copyright (C) 2021  Tómas Árni Jónasson (see [license (GPLv3.0)](LICENSE.txt)
